@@ -37,8 +37,8 @@ const Auth = () => {
             user: userInfo.user,
           });
           setLoading({ ...loading, signIn: false });
-          navigate("/")
-          // navigate(navStateData?.state?.redirect || "/");
+          // navigate("/")
+          navigate(navStateData?.state?.redirect || "/");
         })
         .catch((err) => {
           // console.log(err)
@@ -55,8 +55,8 @@ const Auth = () => {
             user: userInfo.user,
           });
           setLoading({ ...loading, signUp: false });
-          navigate("/");
-          // navigate(navStateData?.state?.redirect || "/");
+          // navigate("/");
+          navigate(navStateData?.state?.redirect || "/");
         })
         .catch((err) => {
           console.log(userInfo);

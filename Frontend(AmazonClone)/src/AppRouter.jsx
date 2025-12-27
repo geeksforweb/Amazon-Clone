@@ -38,7 +38,16 @@ function AppRouter() {
           }
         />
 
-        <Route path="/orders" element={<Orders />} />
+        <Route
+          path="/orders"
+          element={
+            <ProtectedRoute
+              msg={"You must log in to Access Orders"}
+              redirect={"/Orders"}>
+                <Orders />
+            </ProtectedRoute>
+          }
+        />
 
         {/* Category results */}
         <Route path="/category/:categoryName" element={<Results />} />

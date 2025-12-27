@@ -71,8 +71,27 @@ function Payment() {
       const confirmation = await stripe.confirmCardPayment(clientSecret, {
         payment_method: { card: cardElement },
       });
-      console.log(confirmation);
+      // console.log(confirmation);
+
+      // Payment successful → save order in
+      await db
+        .collection("users")
+        .doc(user.uid)
+        .collection("orders")
+        .doc(confirmation.paymentIntent.id)
+        .set({
+          basket,
+          amount: confirmation.paymentIntent.amount,
+          created: confirmation.paymentIntent.created,
+        });
+
+        //empty basket
+        dispatch({ type: Type.EMPTY_BASKET });
+
         setProcessing(false);
+        navigate("/orders", { state: { msg: "You have placed a new order" } });
+
+
 
       // if (confirmation.error) {
       //   setCardError(confirmation.error.message);
@@ -124,7 +143,7 @@ function Payment() {
           <div>
             <div>{user?.email}</div>
             <div>123 React Lane</div>
-            <div>Chicago, IL</div>
+            <div>Addis Abeba</div>
           </div>
         </div>
         <hr />
